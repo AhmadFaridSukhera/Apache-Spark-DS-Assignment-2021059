@@ -1,62 +1,51 @@
-<h1>🎥 Netflix TV Shows & Movies Analysis with Spark & Scala</h1>
-<p>This project performs exploratory data analysis (EDA) on the Netflix TV Shows and Movies dataset using Apache Spark and Scala.
-</p>
-
-<h1>📘 Table of Contents</h1>
-<table>
-<ul>Introduction</ul>
-<ul>Key Spark Concepts</ul>
-<ul>Setup Instructions</ul>
-<ul>How to Run the Project</ul>
-<ul>Results and Outputs</ul>
-</table>
-
-<h1>🚀 Introduction</h1>
-<p>
-Apache Spark is an open-source distributed computing system that provides an interface for programming entire clusters with implicit data parallelism and fault tolerance. It’s widely used for big data processing and supports multiple programming languages like Scala, Python, and Java.</p>
-
-<h1>🔑 Key Spark Concepts</h1>
-<h2>RDD - Core of Spark</h2>
-Resilient Distributed Dataset (RDD) is Spark's core abstraction for a fault-tolerant and distributed collection of elements that can be operated on in parallel.
-
-Execution in Spark
-Spark employs a Directed Acyclic Graph (DAG) to plan jobs. It breaks operations into tasks and stages to optimize execution across distributed systems.
-
-Memory Management
-Spark uses a combination of in-memory processing and disk storage to optimize the use of resources and speed up data processing.
-
-Fault Tolerance
-Spark ensures fault tolerance by allowing RDDs to be rebuilt from lineage in case of node failures.
-
-<h1>⚙️ Setup Instructions</h1>
-Prerequisites
-Install Docker on your machine.
-Clone this repository:
-git clone <repository-url>
-cd <repository-folder>
-🔧 How to Run the Project
-1. Build the Docker Image
-Build the Docker image for the Spark Scala application:
-
-docker build -t spark-scala-app .
-2. Run the Docker Container
-Start a Docker container using the built image:
-
-docker run --rm -v $(pwd)/output:/app/output spark-scala-app
-4. View Output
-The results will be saved in the output/ directory within the project directory
-
-
-<h1>📊 Results and Outputs</h1>
-Schema Information: Available in output/schema.txt.
-Sample Data: First 10 records saved in output/sample_data/.
-Movies vs. TV Shows Count: Results saved in output/type_count/.
-Top 10 Countries with Most Titles: Results saved in output/top_countries/.
-Popular Genres: Results saved in output/popular_genres/.
-Titles Released Per Year: Results saved in output/titles_per_year/.
-Null Counts: Null values for each column saved in output/null_counts.txt.
-
-
-<h1>📖 Notes</h1>
-Ensure that the path to the NetflixEDA.jar file is correctly specified in the Spark job submission command.
-To map the output directory to your local machine, consider using Docker volumes or bindings.
+<h1>1. Initialization and Setup</h1>
+Library Installation and Imports:
+Installs pyspark, indicating the use of Apache Spark for distributed data processing.
+Imports essential libraries such as pandas, matplotlib, numpy, and collections.Counter.
+<h1>2. Data Loading</h1>
+Spark DataFrame:
+A Spark session is initialized using SparkSession.builder.
+Loads the Netflix dataset into a Spark DataFrame, with schema inferred automatically.
+Displays the schema and the first five rows of the dataset.
+Counts the total rows in the dataset.
+<h1>3. Handling Missing Data</h1>
+Null Values:
+Calculates the number of null values in each column using Spark SQL functions.
+This helps in understanding the completeness of the dataset.
+<h1>4. Descriptive Analysis</h1>
+Summary Statistics:
+Generates descriptive statistics for numerical columns.
+Lists distinct values in categorical columns like type and rating.
+<h1>5. Content Distribution Analysis</h1>
+Data Aggregation:
+Groups data by type (e.g., TV Shows or Movies) to calculate and display the count of each category.
+Extracts year_added from date_added and groups data by year to analyze trends over time.
+<h1>6. Genre and Rating Analysis</h1>
+Genres:
+Splits the listed_in column into individual genres using Spark’s explode and split functions.
+Aggregates and ranks genres by frequency.
+Ratings:
+Groups data by rating to calculate and display the count for each rating category.
+<h1>7. Analysis of Key Contributors</h1>
+Top Directors and Actors:
+Lists top directors by frequency of their content.
+Splits the cast column into individual actors and ranks them by frequency.
+<h1>8. Visualization</h1>
+Converts the Spark DataFrame to a Pandas DataFrame for enhanced visualization using matplotlib.
+Key Graphs:
+Content Distribution by Year:
+Bar chart showing the distribution of content by release year.
+Content Type Distribution:
+Pie chart displaying proportions of TV Shows and Movies.
+Rating Distribution:
+Bar chart visualizing the count of different content ratings.
+Top 10 Genres:
+Bar chart highlighting the most frequent genres in Netflix content.
+Content Duration:
+Histogram showing the distribution of content duration (in minutes for movies and seasons for TV shows).
+<h1>9. Data Cleaning and Transformation</h1>
+Duration Conversion:
+Custom function to convert duration (e.g., "1h 30m", "2 Seasons") into numeric values (minutes or seasons).
+Handles various formats and errors gracefully.
+Plot Duration Distribution:
+Visualizes the distribution of content duration using a histogram.
